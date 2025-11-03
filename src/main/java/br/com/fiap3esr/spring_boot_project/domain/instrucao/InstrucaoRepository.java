@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 public interface InstrucaoRepository extends JpaRepository<Instrucao, Long> {
     Boolean existsByInstrutorIdAndData(Long id, LocalDateTime data);
 
-    Boolean existsByAlunoIdAndDataBetween(Long id, LocalDateTime inicioExpediente, LocalDateTime fimExpediente);
+    Long countByAlunoIdAndDataBetween(Long idAluno, LocalDateTime inicioExpediente, LocalDateTime fimExpediente);
 }

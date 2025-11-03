@@ -32,4 +32,23 @@ public class Instrucao {
     private Instrutor instrutor;
 
     private LocalDateTime data;
+
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamento motivoCancelamento;
+
+    private Boolean ativo;
+
+    public Instrucao(Long id, Aluno aluno, Instrutor instrutor, LocalDateTime data) {
+        this.id = id;
+        this.aluno = aluno;
+        this.instrutor = instrutor;
+        this.data = data;
+        this.ativo = true;
+        this.motivoCancelamento = null;
+    }
+
+    public void cancelar(MotivoCancelamento motivo) {
+        this.ativo = false;
+        this.motivoCancelamento = motivo;
+    }
 }

@@ -17,10 +17,9 @@ public class ValidadorLimiteDiarioAluno implements ValidadorAgendamentoInstrucao
     public void validar(DadosAgendamentoInstrucao dados) {
         LocalDateTime inicioExpediente = dados.data().withHour(6);
         LocalDateTime fimExpediente = dados.data().withHour(21 - 1);
-        Boolean alunoReincidenciaDiaria = instrucaoRepository.existsByAlunoIdAndDataBetween(dados.idAluno(), inicioExpediente, fimExpediente);
-
-        if(alunoReincidenciaDiaria) {
-            throw new ValidacaoException("Permitido o agendamento diário de apenas uma instrução por aluno!");
-        }
+        Long countInstrucoesAlunoNoDia = instrucaoRepository.countByAlunoIdAndDataBetween(dados.idAluno(), inicioExpediente, fimExpediente);
+        if(countInstrucoesAlunoNoDia >= 2) {
+                throw new ValidacaoException("Permitido o agendamento diário de no máximo duas instruções por aluno!");
+            }
     }
 }
